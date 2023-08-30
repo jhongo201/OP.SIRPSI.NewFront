@@ -1,0 +1,166 @@
+<div style="max-height: 540px;">
+    <form class="row" #f="ngForm" [formGroup]="this.form" style="max-width: 920px;">
+        <label class="title">Registrar empresa</label>
+        <div class="col-md-6">
+            <label class="form-label">Tipo de documento:</label>
+            <ng-select id="TipoDocumento" #TipoDocumento formControlName="TipoDocumento" [items]="listDocs"
+                bindLabel="nombre" bindValue="id" [(ngModel)]="this.form.value.TipoDocumento" required>
+            </ng-select>
+            <!-- <p class="mt-2 text-muted">Id: <span class="fw-bolder">{{this.form.value.TipoDocumento}}</span></p> -->
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Documento:</label>
+            <input class="form-control" type="text" #Documento placeholder="Documento" formControlName="Documento"
+                required />
+            <p class="text-danger mt-1" *ngIf="form.controls.Documento.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Digito de verificación:</label>
+            <input class="form-control" type="text" #DigitoVerificacion placeholder="Digito de verificación"
+                formControlName="DigitoVerificacion" required />
+            <p class="text-danger mt-1" *ngIf="form.controls.DigitoVerificacion.errors?.errors">Error en el digito
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Nombre empresa:</label>
+            <input class="form-control" type="text" #Nombre placeholder="Nombre empresa" formControlName="Nombre"
+                required />
+            <p class="text-danger mt-1" *ngIf="form.controls.Nombre.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Descripción:</label>
+            <textarea class="form-control" type="text" #Descripcion placeholder="Descripción"
+                formControlName="Descripcion" required></textarea>
+            <p class="text-danger mt-1" *ngIf="form.controls.Descripcion.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Observacion:</label>
+            <textarea class="form-control" type="text" #Observacion placeholder="Observacion"
+                formControlName="Observacion"></textarea>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Tipo de empresa:</label>
+            <ng-select id="IdTipoEmpresa" #IdTipoEmpresa formControlName="IdTipoEmpresa" [items]="listTipoEmpresa"
+                bindLabel="nombre" bindValue="id" [(ngModel)]="this.form.value.IdTipoEmpresa" required>
+            </ng-select>
+            <!-- <p class="mt-2 text-muted">Id: <span class="fw-bolder">{{this.form.value.IdTipoEmpresa}}</span></p> -->
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Adminitrador:</label>
+            <ng-select [readonly]="true" id="IdUsuario" #IdUsuario formControlName="IdUsuario" [items]="listUsuario"
+                bindLabel="nombreUsuario" bindValue="id" [(ngModel)]="this.form.value.IdUsuario"
+                [searchWhileComposing]="true" required>
+                <ng-template ng-option-tmp let-item="item" let-search="searchTerm" let-index="index">
+                    <span>{{ item.cedula }} - {{ item.nombreUsuario + ' ' + item.apellidosUsuario }}</span>
+                </ng-template>
+            </ng-select>
+            <!-- <p class="mt-2 text-muted">Id: <span class="fw-bolder">{{this.form.value.IdUsuario}}</span></p> -->
+        </div>
+        <div class="col-md-6" [ngStyle]="{'display': (this.data.estado == undefined ? 'block' : 'none')}">
+            <label class="form-label">Estado::</label>
+            <ng-select id="IdEstado" #IdEstado formControlName="IdEstado" [items]="estadosList" bindLabel="nombre"
+                bindValue="id" [(ngModel)]="this.form.value.IdEstado" required>
+            </ng-select>
+            <!-- <p class="mt-2 text-muted">Id: <span class="fw-bolder">{{this.form.value.IdEstado}}</span></p> -->
+        </div>
+        <div class="col-md-6" [ngStyle]="{'display': 'none'}">
+            <label class="form-label">Ministerio:</label>
+            <ng-select id="IdMinisterio" #IdMinisterio formControlName="IdMinisterio" [items]="listMinisterios"
+                bindLabel="nombre" bindValue="id" [(ngModel)]="this.form.value.IdMinisterio" required>
+            </ng-select>
+            <!-- <p class="mt-2 text-muted">Id: <span class="fw-bolder">{{this.form.value.IdMinisterio}}</span></p> -->
+        </div>
+    </form>
+    <form class="row" #f="ngForm" [formGroup]="this.formUser" *ngIf="this.form.value.IdUsuario == '0'"
+        style="max-width: 920px;">
+        <div class="col-md-6">
+            <label class="form-label">Tipo de documento:</label>
+            <ng-select id="IdTypeDocument" #IdTypeDocument formControlName="IdTypeDocument" [items]="listDocs"
+                bindLabel="nombre" bindValue="id" [(ngModel)]="this.formUser.value.IdTypeDocument" required>
+            </ng-select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Documento:</label>
+            <input class="form-control" type="text" #Document placeholder="Documento" formControlName="Document"
+                required />
+            <p class="text-danger mt-1" *ngIf="formUser.controls.Document.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Nombre:</label>
+            <input class="form-control" type="text" #Names placeholder="Nombre" formControlName="Names" required />
+            <p class="text-danger mt-1" *ngIf="formUser.controls.Names.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Apellidos:</label>
+            <input class="form-control" type="text" #Surnames placeholder="Apellidos" formControlName="Surnames"
+                required />
+            <p class="text-danger mt-1" *ngIf="formUser.controls.Surnames.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Contraseña:</label>
+            <input class="form-control" type="password" matInput #Password placeholder="Contraseña"
+                formControlName="Password" [readonly]="this.option == 'view'" required>
+            <p class="text-danger mt-1" *ngIf="formUser.controls.Password.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Email:</label>
+            <input class="form-control" type="text" #Email placeholder="Email" formControlName="Email" />
+            <p class="text-danger mt-1" *ngIf="formUser.controls.Email.errors?.email">Email no valido</p>
+            <p class="text-danger mt-1" *ngIf="formUser.controls.Email.errors?.required">Este
+                campo es obligatorio
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Telefono:</label>
+            <input class="form-control mb-4 mb-md-0" prefix="+57 " mask="(000) 000 00 00" [showMaskTyped]="true"
+                #PhoneNumber placeholder="Telefono" formControlName="PhoneNumber" />
+        </div>
+        <div class="col-md-6" [ngStyle]="{'display': 'none'}">
+            <label class="form-label">Rol:</label>
+            <ng-select id="IdRol" #IdRol formControlName="IdRol" [items]="listRoles" bindLabel="nombre" bindValue="id"
+                [(ngModel)]="this.formUser.value.IdRol" required>
+            </ng-select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Pais:</label>
+            <ng-select id="IdCountry" #IdCountry formControlName="IdCountry" [items]="listPaises" bindLabel="nombre"
+                bindValue="id" [(ngModel)]="this.formUser.value.IdCountry" required>
+            </ng-select>
+        </div>
+        <div class="col-md-6" [ngStyle]="{'display': 'none'}">
+            <label class="form-label">Empresa:</label>
+            <ng-select id="IdCompany" #IdCompany formControlName="IdCompany" [items]="listEmpresas" bindLabel="nombre"
+                bindValue="id" [(ngModel)]="this.formUser.value.IdCompany">
+            </ng-select>
+        </div>
+        <!-- <div class="col-md-6" [ngStyle]="{'display': (this.viewStatus ? 'block' : 'none')}"> -->
+        <div class="col-md-6" [ngStyle]="{'display': 'none'}">
+            <label class="form-label">Estado:</label>
+            <ng-select id="IdEstado" #IdEstado formControlName="IdEstado" [items]="estadosList" bindLabel="nombre"
+                bindValue="id" [(ngModel)]="this.formUser.value.IdEstado" required>
+            </ng-select>
+        </div>
+    </form>
+    <div style="padding: 20px 0 25px 0;">
+        <button type="submit" class="btn btn-primary me-2" (click)="onSave()"
+            [disabled]="this.form.invalid && this.formUser.invalid"
+            *ngIf="this.form.value.IdUsuario == '0'">Registrar</button>
+        <button type="submit" class="btn btn-primary me-2" (click)="onSave()" [disabled]="this.form.invalid"
+            *ngIf="this.form.value.IdUsuario != '0'">Registrar</button>
+        <button class="btn btn-secondary" mat-dialog-close>Cancelar</button>
+    </div>
+</div>

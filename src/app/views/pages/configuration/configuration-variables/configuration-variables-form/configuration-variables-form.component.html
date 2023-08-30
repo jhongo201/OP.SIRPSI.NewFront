@@ -1,0 +1,63 @@
+<div style="padding: 16px;">
+    <h1 mat-dialog-title>Variables</h1>
+    <div mat-dialog-content>
+        <form class="row" #f="ngForm" [formGroup]="this.form" *ngIf="type == 0">
+            <label style="color:white;">This dialog showcases the title, close, content and actions
+                elemasdasdadaen</label>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%">
+                    <mat-label>Nombre:</mat-label>
+                    <input type="text" matInput #Nombre placeholder="Nombre" formControlName="Nombre"
+                        [readonly]="this.option == 'view'">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%">
+                    <mat-label>Descripción:</mat-label>
+                    <input type="text" matInput #Descripcion placeholder="Descripción" formControlName="Descripcion"
+                        [readonly]="this.option == 'view'">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%">
+                    <mat-label>Modulo:</mat-label>
+                    <input type="text" matInput #Modulo placeholder="Modulo" formControlName="Modulo"
+                        [readonly]="this.option == 'view'">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%">
+                    <mat-label>Variable 1:</mat-label>
+                    <input type="text" matInput #Variable1 placeholder="Variable 1" formControlName="Variable1"
+                        [readonly]="this.option == 'view'">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%">
+                    <mat-label>Variable 2:</mat-label>
+                    <input type="text" matInput #Variable2 placeholder="Variable 2" formControlName="Variable2"
+                        [readonly]="this.option == 'view'">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%">
+                    <mat-label>Variable 3:</mat-label>
+                    <input type="text" matInput #Variable3 placeholder="Variable 3" formControlName="Variable3"
+                        [readonly]="this.option == 'view'">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 100%">
+                    <mat-label>Variable 4:</mat-label>
+                    <input type="text" matInput #Variable4 placeholder="Variable 4" formControlName="Variable4"
+                        [readonly]="this.option == 'view'">
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button mat-button (click)="onSave()" cdkFocusInitial [disabled]="this.form.invalid"
+            *ngIf="type == 0">Registrar</button>
+    </div>
+</div>
