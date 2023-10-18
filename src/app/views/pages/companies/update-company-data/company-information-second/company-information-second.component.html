@@ -2,7 +2,7 @@
     <form class="row" #f="ngForm" [formGroup]="this.form">
         <div class="col-md-2 mb-2">
             <label class="form-label">Número de trabajadores<i class="mdi mdi-information" #tooltip="matTooltip"
-                    matTooltip="Ingrese su contraseña actual"></i></label>
+                    matTooltip="Ingrese el numero de trabajadores"></i></label>
             <input class="form-control" type="number" #NumeroTrabajadores placeholder="NumeroTrabajadores"
                 formControlName="NumeroTrabajadores" required />
             <p class="text-danger" *ngIf="form.controls.NumeroTrabajadores.errors?.required">Este
@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-2 mb-2">
             <label class="form-label">Clase de riesgo<i class="mdi mdi-information" #tooltip="matTooltip"
-                    matTooltip="Ingrese su contraseña actual"></i></label>
+                    matTooltip="Seleccione una clase de riesgo"></i></label>
             <ng-select id="ClaseRiesgo" #ClaseRiesgo formControlName="ClaseRiesgo" [items]="listClaseRiesgo"
                 bindLabel="nombre" bindValue="id" [(ngModel)]="this.form.value.ClaseRiesgo" required>
             </ng-select>
@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-8 mb-2">
             <label class="form-label">Sector económico<i class="mdi mdi-information" #tooltip="matTooltip"
-                    matTooltip="Ingrese su contraseña actual"></i></label>
+                    matTooltip="Seleccione un sector económico"></i></label>
             <ng-select id="IdSectorEconomico" #IdSectorEconomico formControlName="IdSectorEconomico"
                 [items]="listSectorEconomico" bindLabel="nombre" bindValue="id"
                 [(ngModel)]="this.form.value.IdSectorEconomico" required>
@@ -53,7 +53,8 @@
         <div class="col-md-12">
             <div class="col-md-12 space"></div>
             <app-generic-table [columns]="columns" [options]="optionsWork" [table]="this.table"
-                (assign)="onAssignAdmin($event, 1, 2, 2)" [filter]="filter"></app-generic-table>
+                (assign)="onAssignAdmin($event, 1, 2, 2)" [filter]="filter"
+                [delete]="'centrotrabajo/EliminarCentroTrabajo'"></app-generic-table>
         </div>
     </div>
 </div>

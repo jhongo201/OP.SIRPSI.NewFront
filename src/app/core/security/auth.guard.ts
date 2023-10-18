@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private accountService: AccountService) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    console.log(route.routeConfig);
     if (this.accountService.userData) {
       if (
         route.routeConfig?.path == 'dashboard' ||

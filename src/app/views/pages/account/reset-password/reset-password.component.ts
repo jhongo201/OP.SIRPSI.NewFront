@@ -35,7 +35,7 @@ export class ResetPasswordComponent implements OnInit {
       NewPassword: ['', Validators.required],
       ConfirmPassword: ['', Validators.required],
     });
-    this.accountService.ValidateSesion();
+    // this.accountService.ValidateSesion();
     setTimeout(() => this.loadingService.ChangeStatusLoading(false), 800);
     this.GetPararmsRoute();
   }

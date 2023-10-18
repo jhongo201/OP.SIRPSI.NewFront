@@ -32,9 +32,17 @@
     </div>
     <div class="col-md-6">
         <label class="form-label">Contraseña:</label>
-        <input class="form-control" type="password" matInput #Password placeholder="Contraseña"
-            formControlName="Password" [readonly]="this.option == 'view'" required>
-        <p class="text-danger mt-1" *ngIf="form.controls.Password.errors?.required">Este
+        <div>
+            <input class="form-control" [type]="hide ? 'password' : 'text'" #Password placeholder="Confirmar contraseña"
+                formControlName="Password" required
+                style="width: calc(100% - 40px); float: left; border-radius: 0.25rem 0 0 0.25rem;" />
+            <button mat-icon-button matSuffix (click)="hide= !hide" [attr.aria-label]="'Hide password'"
+                style="float: left; width: 40px; background: #e9ecef; border-radius: none; border-radius: 0px 5px 5px 0px; line-height: 38px; height: auto;"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </div>
+        <p class="text-danger mt-1" *ngIf="form.controls.Password.errors?.required" style="float:left;">Este
             campo es obligatorio
         </p>
     </div>
@@ -58,7 +66,7 @@
         </ng-select>
     </div>
     <div class="col-md-6">
-        <label class="form-label">Pais:</label>
+        <label class="form-label">País:</label>
         <ng-select id="IdCountry" #IdCountry formControlName="IdCountry" [items]="listPaises" bindLabel="nombre"
             bindValue="id" [(ngModel)]="this.form.value.IdCountry" required>
         </ng-select>

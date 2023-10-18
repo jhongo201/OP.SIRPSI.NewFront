@@ -20,9 +20,18 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AccountModule } from './views/pages/account/account.module';
 import { ServiceInterceptor } from './core/interceptors/service.interceptor';
+import { ReloadDirective } from './core/directives/reload.directive';
+import { CompaniesModule } from './views/pages/companies/companies.module';
+import { GenericTableModule } from './shared/components/generic-table/generic-table.module';
+import { QueryReportsComponent } from './views/pages/query-reports/query-reports.component';
 
 @NgModule({
-  declarations: [AppComponent, ErrorPageComponent],
+  declarations: [
+    AppComponent,
+    ErrorPageComponent,
+    ReloadDirective,
+    QueryReportsComponent,
+  ],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -41,7 +50,7 @@ import { ServiceInterceptor } from './core/interceptors/service.interceptor';
     MatPseudoCheckboxModule,
     MatCheckboxModule,
     MatTooltipModule,
-    // AccountModule
+    // AccountModule,
   ],
   providers: [
     AuthGuard,

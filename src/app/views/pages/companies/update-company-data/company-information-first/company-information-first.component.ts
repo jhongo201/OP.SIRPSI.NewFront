@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { GenericService } from 'src/app/shared/services/generic.service';
+import { getService } from 'src/app/shared/services/get,services';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -17,7 +18,9 @@ export class CompanyInformationFirstComponent implements OnInit {
   public form: FormGroup;
   public formWorkCenter: FormGroup;
   public formUser: FormGroup;
+  public formRepresentative: FormGroup;
   public option: string;
+  @Output() cancelar = new EventEmitter<boolean>();
   listCompaniesUser: any;
   estadosList: any;
   listUsuario: any;
@@ -31,6 +34,9 @@ export class CompanyInformationFirstComponent implements OnInit {
   listTiposPersona: any;
   listRegimenes: any;
   listActividadEconomica: any;
+  listDepartament: any;
+  listCity: any;
+  hideUser = true;
   @Input('company') company: any = null;
   constructor(
     public formBuilder: FormBuilder,
@@ -38,7 +44,8 @@ export class CompanyInformationFirstComponent implements OnInit {
     private genericService: GenericService,
     private loadingService: LoadingService,
     private accountService: AccountService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private servicio: getService
   ) {}
   ngOnInit(): void {
     this.getListas();
@@ -52,7 +59,7 @@ export class CompanyInformationFirstComponent implements OnInit {
       IdActividadEconomica: ['', Validators.required],
       Documento: ['', Validators.required],
       Nombre: ['', Validators.required],
-      Descripcion: ['', Validators.required],
+      Descripcion: '',
       Observacion: '',
       IdMinisterio: ['', Validators.required],
       IdEstado: ['', Validators.required],
@@ -62,12 +69,26 @@ export class CompanyInformationFirstComponent implements OnInit {
     this.formWorkCenter = this.formBuilder.group({
       Id: ['', Validators.required],
       Nombre: ['', Validators.required],
-      Descripcion: ['', Validators.required],
+      Descripcion: '',
       Principal: true,
-      IdMinisterio: ['', Validators.required],
       IdEstado: ['', Validators.required],
-      IdUsuario: ['', Validators.required],
+      IdUsuario: '',
       IdEmpresa: ['', Validators.required],
+      IdDepartamento: 0,
+      IdMunicipio: 0,
+      Email: ['', Validators.required],
+      Celular: '',
+      Telefono: '',
+      Direccion: '',
+    });
+    this.formRepresentative = this.formBuilder.group({
+      Id: ['', Validators.required],
+      PrimerNombre: ['', Validators.required],
+      SegundoNombre: '',
+      PrimerApellido: ['', Validators.required],
+      SegundoApellido: '',
+      IdTipoDocumento: ['', Validators.required],
+      NumeroDocumento: ['', Validators.required],
     });
     this.formUser = this.formBuilder.group({
       Id: ['', Validators.required],
@@ -77,20 +98,21 @@ export class CompanyInformationFirstComponent implements OnInit {
       IdCompany: '',
       Names: ['', Validators.required],
       Surnames: ['', Validators.required],
-      IdRol: environment.adminitradorEmpRole,
-      Password: ['', Validators.required],
+      IdRol: environment.administradorEmpRole,
+      Password: '1234567890',
       PhoneNumber: '',
-      Email: ['', Validators.required, Validators.email],
+      Email: ['', Validators.required],
       IdEstado: environment.inactivoEstado,
     });
-    this.loadDataCompany(this.company);
   }
   onSave() {
     var body = {
       Empresa: this.form.value,
       CentroTrabajo: this.formWorkCenter.value,
       Usuario: this.formUser.value,
+      RepresentanteEmpresa: this.formRepresentative.value,
     };
+    console.log(body);
     Swal.fire({
       title: '¿Estas seguro?',
       icon: 'info',
@@ -125,8 +147,14 @@ export class CompanyInformationFirstComponent implements OnInit {
       verticalPosition: 'bottom',
     });
   }
+  onGetDepartment(url: string) {
+    this.servicio.obtenerDatos(url).subscribe((data) => {
+      this.listDepartament = data;
+    });
+  }
   getListas() {
     this.loadingService.ChangeStatusLoading(true);
+    this.onGetDepartment(environment.urlApiColombia + 'Department');
     this.genericService
       .GetAll(
         'empresas/ConsultarEmpresasUsuario?user=' +
@@ -141,69 +169,62 @@ export class CompanyInformationFirstComponent implements OnInit {
             this.form.controls['IdMinisterio'].setValue(
               this.listMinisterios[0].id
             );
+            // this.genericService
+            //   .GetAll('tipodocumento/ConsultarTipoDocumento')
+            //   .subscribe((data: any) => {
+            //     this.listDocs = data;
             this.genericService
-              .GetAll('tipodocumento/ConsultarTipoDocumento')
+              .GetAll('tiposempresa/ConsultarTipoEmpresa')
               .subscribe((data: any) => {
-                this.listDocs = data;
+                this.listTipoEmpresa = data;
                 this.genericService
-                  .GetAll('tiposempresa/ConsultarTipoEmpresa')
+                  .GetAll('estados/ConsultarEstados')
                   .subscribe((data: any) => {
-                    this.listTipoEmpresa = data;
+                    this.estadosList = data;
                     this.genericService
-                      .GetAll('estados/ConsultarEstados')
+                      .GetAll('empresas/ConsultarEmpresas')
                       .subscribe((data: any) => {
-                        this.estadosList = data;
+                        this.listEmpresas = data;
                         this.genericService
-                          .GetAll('empresas/ConsultarEmpresas')
+                          .GetAll('pais/ConsultarPaises')
                           .subscribe((data: any) => {
-                            this.listEmpresas = data;
+                            this.listPaises = data;
                             this.genericService
-                              .GetAll('pais/ConsultarPaises')
+                              .GetAll('roles/ConsultarRoles')
                               .subscribe((data: any) => {
-                                this.listPaises = data;
+                                this.listRoles = data;
                                 this.genericService
-                                  .GetAll('roles/ConsultarRoles')
+                                  .GetAll(
+                                    'regimenesTributario/ConsultarRegimenesTributario'
+                                  )
                                   .subscribe((data: any) => {
-                                    this.listRoles = data;
+                                    this.listRegimenes = data;
                                     this.genericService
                                       .GetAll(
-                                        'regimenesTributario/ConsultarRegimenesTributario'
+                                        'tiposPersonas/ConsultarTiposPersona'
                                       )
                                       .subscribe((data: any) => {
-                                        this.listRegimenes = data;
+                                        this.listTiposPersona = data;
                                         this.genericService
                                           .GetAll(
-                                            'tiposPersonas/ConsultarTiposPersona'
+                                            'actividadEconomica/ConsultarActividadEconomica'
                                           )
                                           .subscribe((data: any) => {
-                                            this.listTiposPersona = data;
+                                            this.listActividadEconomica = data;
                                             this.genericService
                                               .GetAll(
-                                                'actividadEconomica/ConsultarActividadEconomica'
+                                                'usuario/ConsultarUsuarios'
                                               )
                                               .subscribe((data: any) => {
-                                                this.listActividadEconomica =
-                                                  data;
-                                                this.genericService
-                                                  .GetAll(
-                                                    'usuario/ConsultarUsuarios'
-                                                  )
-                                                  .subscribe((data: any) => {
-                                                    this.listUsuario = data;
-                                                    this.listUsuario.push({
-                                                      id: '0',
-                                                      nombreUsuario:
-                                                        'Registrar',
-                                                      apellidosUsuario: '',
-                                                    });
-                                                    setTimeout(
-                                                      () =>
-                                                        this.loadingService.ChangeStatusLoading(
-                                                          false
-                                                        ),
-                                                      500
-                                                    );
-                                                  });
+                                                this.listUsuario = data;
+                                                this.listUsuario.push({
+                                                  id: '0',
+                                                  nombreUsuario: 'Registrar',
+                                                  apellidosUsuario: '',
+                                                });
+                                                this.loadDataCompany(
+                                                  this.company
+                                                );
                                               });
                                           });
                                       });
@@ -213,11 +234,37 @@ export class CompanyInformationFirstComponent implements OnInit {
                       });
                   });
               });
+            // });
           });
       });
   }
   loadDataCompany(event: any) {
+    // this.loadingService.ChangeStatusLoading(false);
     if (event != null && event != undefined) {
+      this.formRepresentative.controls['Id'].setValue(
+        event.representanteEmpresa.id
+      );
+      this.formRepresentative.controls['PrimerNombre'].setValue(
+        event.representanteEmpresa.primerNombre
+      );
+      this.formRepresentative.controls['SegundoNombre'].setValue(
+        event.representanteEmpresa.segundoNombre
+      );
+      this.formRepresentative.controls['PrimerApellido'].setValue(
+        event.representanteEmpresa.primerApellido
+      );
+      this.formRepresentative.controls['SegundoApellido'].setValue(
+        event.representanteEmpresa.segundoApellido
+      );
+      this.formRepresentative.controls['IdTipoDocumento'].setValue(
+        event.representanteEmpresa.idTipoDocumento
+      );
+      this.formRepresentative.controls['NumeroDocumento'].setValue(
+        event.representanteEmpresa.numeroDocumento
+      );
+
+      this.form.controls['IdTipoPersona'].setValue(event.idTipoPersona);
+      this.onGetTypeDocument({ IdTipoPersona: event.idTipoPersona });
       this.form.controls['Id'].setValue(event.id);
       this.form.controls['DigitoVerificacion'].setValue(
         event.digitoVerificacion
@@ -231,7 +278,6 @@ export class CompanyInformationFirstComponent implements OnInit {
       this.form.controls['TipoDocumento'].setValue(event.tipoDocumento.id);
       this.form.controls['Descripcion'].setValue(event.descripcion);
       this.form.controls['IdUsuario'].setValue(event.idUsuario);
-      this.form.controls['IdTipoPersona'].setValue(event.idTipoPersona);
       this.form.controls['IdRegimenTributario'].setValue(
         event.idRegimenTributario
       );
@@ -246,6 +292,10 @@ export class CompanyInformationFirstComponent implements OnInit {
       this.formWorkCenter.controls['Descripcion'].setValue(
         event.centroTrabajo.descripcion
       );
+      this.formWorkCenter.controls['IdDepartamento'].setValue(
+        parseInt(event.centroTrabajo.idDepartamento, 10)
+      );
+      this.onGetCity({ IdDepartamento: event.centroTrabajo.idDepartamento });
       this.formWorkCenter.controls['Principal'].setValue(
         event.centroTrabajo.principal
       );
@@ -257,6 +307,19 @@ export class CompanyInformationFirstComponent implements OnInit {
       );
       this.formWorkCenter.controls['IdEstado'].setValue(
         event.centroTrabajo.idEstado
+      );
+      this.formWorkCenter.controls['IdMunicipio'].setValue(
+        parseInt(event.centroTrabajo.idMunicipio, 10)
+      );
+      this.formWorkCenter.controls['Email'].setValue(event.centroTrabajo.email);
+      this.formWorkCenter.controls['Celular'].setValue(
+        event.centroTrabajo.celular
+      );
+      this.formWorkCenter.controls['Telefono'].setValue(
+        event.centroTrabajo.telefono
+      );
+      this.formWorkCenter.controls['Direccion'].setValue(
+        event.centroTrabajo.direccion
       );
 
       this.formUser.controls['Id'].setValue(event.usuario.id);
@@ -271,11 +334,51 @@ export class CompanyInformationFirstComponent implements OnInit {
       this.formUser.controls['IdRol'].setValue(event.usuario.idRol);
       this.formUser.controls['PhoneNumber'].setValue(event.usuario.phoneNumber);
       this.formUser.controls['Email'].setValue(event.usuario.email);
-      this.formUser.controls['IdEstado'].setValue(event.usuario.idEstado);
+      this.formUser.controls['IdEstado'].setValue(event.usuario.status);
     } else {
       this.form.reset();
       this.formWorkCenter.reset();
       this.formUser.reset();
+      this.formRepresentative.reset();
     }
+    setTimeout(() => this.loadingService.ChangeStatusLoading(false), 1500);
+  }
+  onGetCity(url: any) {
+    console.log('city', url.IdDepartamento);
+    this.listCity = [];
+    this.formWorkCenter.value.IdMunicipio = '';
+    if (url.IdDepartamento == null) return;
+    this.servicio
+      .obtenerDatos(
+        environment.urlApiColombia + `Department/${url.IdDepartamento}/cities`
+      )
+      .subscribe((data) => {
+        this.listCity = data;
+      });
+  }
+  onGetTypeDocument(url: any) {
+    this.listDocs = [];
+    this.form.value.TipoDocumento = '';
+    if (url.IdTipoPersona == null) return;
+    this.genericService
+      .GetAll(
+        'tipodocumento/ConsultarTipoDocumento?idTipoPersona=' +
+          url.IdTipoPersona
+      )
+      .subscribe((data: any) => {
+        this.listDocs = data;
+      });
+  }
+  cancelarForm() {
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: 'no podras revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) this.cancelar.emit(true);
+    });
   }
 }

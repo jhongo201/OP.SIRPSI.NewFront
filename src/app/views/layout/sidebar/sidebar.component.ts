@@ -16,6 +16,7 @@ import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { SelectRoleService } from 'src/app/shared/services/select-role.service';
 import { AccountService } from 'src/app/shared/services/account.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sidebar',
@@ -33,7 +34,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     public accountService: AccountService,
     public roleService: SelectRoleService,
-    router: Router
+    public router: Router
   ) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -57,15 +58,18 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       {
         label: 'Main',
         isTitle: true,
+        view: true,
       },
       {
         label: 'Dashboard',
         icon: 'home',
         link: '/dashboard',
+        view: true,
       },
       {
         label: 'APLICACIÓN',
         isTitle: true,
+        view: true,
       },
       {
         label: 'Usuarios',
@@ -99,6 +103,61 @@ export class SidebarComponent implements OnInit, AfterViewInit {
                 (ruta: any) => ruta.ruta == 'users-company-not-affiliated'
               ).length > 0,
           },
+          {
+            label: 'Registrar nuevo Administrador SIRPSI',
+            link: '/users/register-new-administrator',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'register-new-administrator'
+              ).length > 0,
+          },
+          {
+            label: 'Registrar Psicólogo Especialista SST',
+            link: '/users/register-new-psychologist',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'register-new-psychologist'
+              ).length > 0,
+          },
+          {
+            label: 'Registrar Trabajador',
+            link: '/users/register-new-worker',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'register-new-worker'
+              ).length > 0,
+          },
+          {
+            label: 'Actualizar datos Psicólogo',
+            link: '/users/update-psychologist-data',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'update-psychologist-data'
+              ).length > 0,
+          },
+          {
+            label: 'Actualizar datos del Trabajador',
+            link: '/users/update-worker-data',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'update-worker-data'
+              ).length > 0,
+          },
         ],
       },
       {
@@ -128,6 +187,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           {
             label: 'Actualizar datos Empresa',
             link: '/companies/update-company-data',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
             view:
               this.accountService.userData.rutasAsignadas.filter(
                 (ruta: any) => ruta.ruta == 'update-company-data'
@@ -141,6 +203,28 @@ export class SidebarComponent implements OnInit, AfterViewInit {
                 (ruta: any) => ruta.ruta == 'work-centers'
               ).length > 0,
           },
+          {
+            label: 'Vincular | Desvincular Psicólogo',
+            link: '/companies/link-unlink-psychologist',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'link-unlink-psychologist'
+              ).length > 0,
+          },
+          {
+            label: 'Vincular | Desvincular Trabajador',
+            link: '/work-centers/link-unlink-worker',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'link-unlink-worker'
+              ).length > 0,
+          },
         ],
       },
       {
@@ -150,54 +234,147 @@ export class SidebarComponent implements OnInit, AfterViewInit {
           this.accountService.userData.rutasAsignadas.filter(
             (ruta: any) => ruta.ruta == 'configuration'
           ).length > 0,
+        // subItems: [
+        //   {
+        //     label: 'Prueba',
+        //     link: '#',
+        //     view:
+        //       this.accountService.userData.rutasAsignadas.filter(
+        //         (ruta: any) => ruta.ruta == 'configuration'
+        //       ).length > 0,
+        //   },
+        // ],
+      },
+      {
+        label: 'Evaluación Psicosocial',
+        isTitle: true,
+        view:
+          this.accountService.userData.rutasAsignadas.filter(
+            (ruta: any) => ruta.ruta == 'query-reports'
+          ).length > 0,
+      },
+      {
+        label: 'Gestionar',
+        icon: 'edit',
+        view:
+          this.accountService.userData.rutasAsignadas.filter(
+            (ruta: any) => ruta.ruta == 'manage'
+          ).length > 0,
         subItems: [
           {
-            label: 'Prueba',
-            link: '#',
+            label: 'Convocar trabajadores',
+            link: 'psychosocial-evaluation/manage/summon-workers',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
             view:
               this.accountService.userData.rutasAsignadas.filter(
-                (ruta: any) => ruta.ruta == 'configuration'
+                (ruta: any) => ruta.ruta == 'summon-workers'
+              ).length > 0,
+          },
+          {
+            label: 'Avances evaluación psicosocial',
+            link: 'psychosocial-evaluation/manage/advances',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'advances'
+              ).length > 0,
+          },
+          {
+            label: 'Generar radicado',
+            link: 'psychosocial-evaluation/manage/generate-filed',
+            showMessage: true,
+            message:
+              'Estimado/a Usuario/a, en este módulo, el usuario Administrador SIRPSI de la Empresa puede actualizar el correo electrónico y datos de contacto. Solo este usuario tiene los privilegios para actualizar sus propios datos y los del usuario Psicólogo Especialista  SST en el módulo respectivo.  La actualización  de los datos del usuario Trabajador está a cargo únicamente del usuario Psicólogo Especialista SST. El sistema permite asociar un mismo correo electrónico a otros roles que se le asignen al usuario como Trabajador, Psicólogo Especialista SST o Administrador SIRPSI de la Empresa, en una o varias empresas registradas en el sistema, si se requiere .” Para aprender más sobre este proceso puede consultar  el material de capacitación  disponible en el siguiente enlace  <a href="#">material de capacitación</a>.',
+            view:
+              this.accountService.userData.rutasAsignadas.filter(
+                (ruta: any) => ruta.ruta == 'generate-filed'
               ).length > 0,
           },
         ],
       },
       {
-        label: 'Evaluación Psicosocial',
-        icon: 'monitor',
+        label: 'Realizar',
+        icon: 'file-text',
+        view: true,
+        subItems: [
+          {
+            label: 'Convocar trabajadores',
+            link: '#',
+            view: true,
+          },
+          {
+            label: 'Avances evaluación psicosocial',
+            link: '#',
+            view: true,
+          },
+          {
+            label: 'Generar radicado evaluación psicosocial',
+            link: '#',
+            view: true,
+          },
+        ],
+      },
+      {
+        label: 'Apoyar',
+        icon: 'plus',
+        view: true,
+        link: '#',
+      },
+      {
+        label: 'Planes de Intervención y control',
+        icon: 'trello',
+        view: true,
+        link: '#',
+      },
+      {
+        label: 'Reportes',
+        isTitle: true,
         view:
           this.accountService.userData.rutasAsignadas.filter(
-            (ruta: any) => ruta.ruta == 'configuration'
+            (ruta: any) => ruta.ruta == 'query-reports'
+          ).length > 0,
+      },
+      {
+        label: 'Consultas | Reportes',
+        icon: 'pie-chart',
+        view:
+          this.accountService.userData.rutasAsignadas.filter(
+            (ruta: any) => ruta.ruta == 'query-reports'
           ).length > 0,
         subItems: [
           {
-            label: 'Gestionar evaluación psicosocial',
-            link: '#',
+            label: 'Consulta Evaluación Psicosocial por Vigencia',
+            link: '/query-reports/consultation-psychosocial-evaluation-validity',
             view:
               this.accountService.userData.rutasAsignadas.filter(
-                (ruta: any) => ruta.ruta == 'configuration'
+                (ruta: any) => ruta.ruta == 'worker-management-consultation'
               ).length > 0,
           },
           {
-            label: 'Realizar evaluación psicosocial',
-            link: '#',
+            label: 'Consulta Gestión de Trabajadores',
+            link: '/query-reports/worker-management-consultation',
             view:
               this.accountService.userData.rutasAsignadas.filter(
-                (ruta: any) => ruta.ruta == 'configuration'
-              ).length > 0,
-          },
-          {
-            label: 'Realizar evaluación psicosocial',
-            link: '#',
-            view:
-              this.accountService.userData.rutasAsignadas.filter(
-                (ruta: any) => ruta.ruta == 'configuration'
+                (ruta: any) => ruta.ruta == 'worker-management-consultation'
               ).length > 0,
           },
         ],
       },
       {
         label: 'Configuración',
-        icon: 'edit',
+        isTitle: true,
+        view:
+          this.accountService.userData.rutasAsignadas.filter(
+            (ruta: any) => ruta.ruta == 'configuration'
+          ).length > 0,
+      },
+      {
+        label: 'Configuración',
+        icon: 'settings',
         view:
           this.accountService.userData.rutasAsignadas.filter(
             (ruta: any) => ruta.ruta == 'configuration'
@@ -228,12 +405,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
               ).length > 0,
           },
           {
-            label: 'Asignar rutas a role',
+            label: 'Asignar rutas a roles',
             link: '/configuration/routes-role',
             view:
               this.accountService.userData.rutasAsignadas.filter(
                 (ruta: any) => ruta.ruta == 'routes-role'
               ).length > 0,
+          },
+          {
+            label: 'Horario trabajo',
+            link: '/apps/calendar',
+            view: true,
           },
         ],
       },
@@ -432,5 +614,22 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         }
       }
     }
+  }
+  showMessageRedirect(url: any, show: boolean, message: string) {
+    if (show == true) this.showMessage(url, message);
+    else if (url != undefined) this.router.navigate([url]);
+  }
+  showMessage(url: any, message: string) {
+    var messageInfo = '<p class="texto-mensaje">' + message + '</p>';
+    Swal.fire({
+      icon: 'info',
+      title: 'Estimado(a) usuario(a)',
+      html: messageInfo,
+      confirmButtonText: 'Aceptar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate([url]);
+      }
+    });
   }
 }

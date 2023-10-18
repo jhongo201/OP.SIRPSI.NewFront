@@ -24,9 +24,16 @@ import {
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ChangeDataProfileComponent } from './change-data-profile/change-data-profile.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { ChangeEmailProfileComponent } from './change-email-profile/change-email-profile.component';
 
 @NgModule({
-  declarations: [ProfileComponent, ChangePasswordProfileComponent, ChangeDataProfileComponent],
+  declarations: [
+    ProfileComponent,
+    ChangePasswordProfileComponent,
+    ChangeDataProfileComponent,
+    ChangeEmailProfileComponent,
+  ],
   imports: [
     HttpClientModule,
     CommonModule,
@@ -49,6 +56,7 @@ import { ChangeDataProfileComponent } from './change-data-profile/change-data-pr
     NgbTooltipModule,
     NgxCaptchaModule,
     NgSelectModule,
+    NgxMaskModule.forRoot({ validation: true }),
   ],
 })
 export class ProfileModule {}

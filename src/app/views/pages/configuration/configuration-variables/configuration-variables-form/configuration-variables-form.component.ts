@@ -107,4 +107,7 @@ export class ConfigurationVariablesFormComponent implements OnInit {
     //   });
     // }
   }
+  cancelForm() {
+    this.dialogRef.close();
+  }
 }

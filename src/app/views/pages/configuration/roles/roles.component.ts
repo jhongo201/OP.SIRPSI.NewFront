@@ -25,15 +25,15 @@ export class RolesComponent implements OnInit {
     { name: 'F. Registro', data: 'registrationDate', pipeDate: 'YYYY/dd/MM' },
   ];
   public options = [
-    {
-      delete: true,
-      edit: true,
-      details: true,
-      select: true,
-      state: true,
-      pdf: true,
-      validationSelect: true,
-    },
+    // {
+    //   delete: true,
+    //   edit: true,
+    //   details: true,
+    //   select: true,
+    //   state: true,
+    //   pdf: true,
+    //   validationSelect: true,
+    // },
   ];
 
   constructor(

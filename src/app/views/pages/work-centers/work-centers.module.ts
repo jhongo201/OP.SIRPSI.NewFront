@@ -19,6 +19,7 @@ import { GenericTableModule } from 'src/app/shared/components/generic-table/gene
 import { FileUploadModule } from 'src/app/shared/components/file-upload/file-upload.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskModule } from 'ngx-mask';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { NgxMaskModule } from 'ngx-mask';
     GenericTableModule,
     FileUploadModule,
     NgSelectModule,
+    MatTooltipModule,
     NgxMaskModule.forRoot({ validation: true }),
   ],
 })

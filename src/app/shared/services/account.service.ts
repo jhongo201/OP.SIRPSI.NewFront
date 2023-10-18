@@ -5,6 +5,7 @@ import { Observable, map, BehaviorSubject } from 'rxjs';
 import {
   ActivateUserRequest,
   AuthenticationRequest,
+  ChangeEmailRequest,
   ChangePasswordRequest,
   ChangedPasswwordRequest,
   RecoverPasswordRequest,
@@ -159,6 +160,18 @@ export class AccountService {
   public ChangePassword(data: ChangePasswordRequest): Observable<any> {
     return this.http
       .post<any>(environment.urlApi + 'User/ChangePassword', data)
+      .pipe(
+        map((res) => {
+          if (res.Status == '400') {
+            console.log(res);
+          }
+          return res;
+        })
+      );
+  }
+  public ChangeEmail(data: ChangeEmailRequest): Observable<any> {
+    return this.http
+      .post<any>(environment.urlApi + 'User/ChangeEmail', data)
       .pipe(
         map((res) => {
           if (res.Status == '400') {

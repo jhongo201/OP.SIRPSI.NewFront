@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/services/account.service';
@@ -13,18 +14,23 @@ import Swal from 'sweetalert2';
 })
 export class ChangePasswordProfileComponent implements OnInit {
   public form: FormGroup;
+  public colSize: string = 'col-md-3';
   countErrorPassword: number = 0;
-  hide = true;
+  hideOld = true;
+  hideNew = true;
   constructor(
     public formBuilder: FormBuilder,
     public accountService: AccountService,
     private snackBar: MatSnackBar,
     private loadingService: LoadingService,
     public router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    @Optional() public dialogRef: MatDialogRef<ChangePasswordProfileComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
+    this.colSize = this.data != null ? 'col-md-12 mb-2' : 'col-md-3';
     this.form = this.formBuilder.group({
       OldPassword: ['', Validators.required],
       NewPassword: ['', Validators.required],
@@ -75,7 +81,10 @@ export class ChangePasswordProfileComponent implements OnInit {
       confirmButtonText: 'Si',
       cancelButtonText: 'No',
     }).then((result) => {
-      if (result.isConfirmed) this.form.reset();
+      if (result.isConfirmed) {
+        if (this.data.type != 1) this.form.reset();
+        else this.dialogRef.close();
+      }
     });
   }
   openSnackBar(message: string) {

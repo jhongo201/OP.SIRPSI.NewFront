@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
     { name: 'Tipo documento', data: 'tipoDocumento', property: 'nombre' },
     { name: 'Cédula', data: 'cedula' },
     { name: 'Correo', data: 'correo' },
-    { name: 'Telefono', data: 'telefono' },
+    { name: 'Teléfono', data: 'telefono' },
     { name: 'Empresa', data: 'empresa', property: 'nombre' },
     { name: 'Rol', data: 'role', property: 'name' },
     { name: 'Nombre', data: 'nombreUsuario' },

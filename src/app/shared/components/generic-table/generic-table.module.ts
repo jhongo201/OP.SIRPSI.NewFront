@@ -5,21 +5,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
-  declarations: [
-    GenericTableComponent
-  ],
+  declarations: [GenericTableComponent],
   imports: [
     CommonModule,
     MatPaginatorModule,
     MatDialogModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule,
   ],
-  exports: [
-    GenericTableComponent,
-  ]
+  exports: [GenericTableComponent],
 })
-export class GenericTableModule { }
+export class GenericTableModule {}

@@ -16,18 +16,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskModule } from 'ngx-mask';
 import { UpdateCompanyDataComponent } from './update-company-data.component';
 import { UpdateCompanyDataRoutingModule } from './update-company-data-routing.module';
-import { CompanyInformationFirstComponent } from './company-information-first/company-information-first.component';
 import { CompanyInformationSecondComponent } from './company-information-second/company-information-second.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CompanyInformationFirstModule } from './company-information-first/company-information-first.module';
 
 @NgModule({
-  declarations: [
-    UpdateCompanyDataComponent,
-    CompanyInformationFirstComponent,
-    CompanyInformationSecondComponent,
-  ],
+  declarations: [UpdateCompanyDataComponent, CompanyInformationSecondComponent],
   imports: [
     CommonModule,
     UpdateCompanyDataRoutingModule,
@@ -51,6 +47,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTabsModule,
     MatTooltipModule,
     FeatherIconModule,
+    CompanyInformationFirstModule,
     MatOptionModule,
     NgxMaskModule.forRoot({ validation: true }),
   ],

@@ -118,4 +118,7 @@ export class ValidationEmailVariableFormComponent implements OnInit {
     //   });
     // }
   }
+  cancelForm() {
+    this.dialogRef.close();
+  }
 }

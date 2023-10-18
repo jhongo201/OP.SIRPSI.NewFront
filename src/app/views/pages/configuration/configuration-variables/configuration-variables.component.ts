@@ -26,15 +26,15 @@ export class ConfigurationVariablesComponent implements OnInit {
     { name: 'Modulo', data: 'modulo' },
     { name: 'Role', data: 'role', property: 'name' },
     { name: 'Variable', data: 'variable1' },
-    { name: 'Variable', data: 'variable2' },
+    { name: 'Variable 2', data: 'variable2' },
     // { name: 'Variable', data: 'variable3' },
     // { name: 'Variable', data: 'variable4' },
   ];
   public options = [
     {
       delete: true,
-      edit: true,
-      details: true,
+      edit: false,
+      details: false,
       select: false,
       state: false,
       pdf: false,

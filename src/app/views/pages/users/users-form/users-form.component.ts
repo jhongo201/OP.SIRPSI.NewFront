@@ -7,6 +7,7 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { CompaniesFormComponent } from '../../companies/companies-form/companies-form.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users-form',
@@ -30,9 +31,11 @@ export class UsersFormComponent implements OnInit {
   type: number = this.data.type;
   table: number = this.data.table;
   listRoles: any;
+  hide = true;
   constructor(
     public formBuilder: FormBuilder,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private genericService: GenericService,
     private loadingService: LoadingService,
     public dialogRef: MatDialogRef<UsersFormComponent>,
@@ -52,7 +55,7 @@ export class UsersFormComponent implements OnInit {
         this.data.role == undefined
           ? ['', Validators.required]
           : this.data.role == 1
-          ? environment.adminitradorEmpRole
+          ? environment.administradorEmpRole
           : this.data.role == 2
           ? environment.psicologoRole
           : environment.trabajadorRole,
@@ -138,7 +141,7 @@ export class UsersFormComponent implements OnInit {
                               (data: any) =>
                                 data.idRol ==
                                 (this.data.table == 0
-                                  ? environment.adminitradorEmpRole
+                                  ? environment.administradorEmpRole
                                   : this.data.table == 1
                                   ? environment.psicologoRole
                                   : environment.trabajadorRole)
@@ -182,30 +185,8 @@ export class UsersFormComponent implements OnInit {
     if (this.table == 0) {
       var empresa = this.data.item;
       empresa.IdUsuario = this.formEmpresa.value.Usuario;
-      this.genericService.Put('empresas/ActualizarEmpresa', empresa).subscribe({
-        next: (data) => {
-          this.dialogRef.close();
-          Swal.fire({
-            icon: 'success',
-            title: 'Usuario asignado exitosamente.',
-            showConfirmButton: false,
-            timer: 2800,
-          }).then(() => window.location.reload());
-        },
-        error: (error) => {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Ha ocurrido un error! ' + error.error.message,
-            showConfirmButton: false,
-            timer: 2800,
-          });
-        },
-      });
-    } else if (this.table == 1) {
-      var centroTrabajo = this.data.item;
-      centroTrabajo.IdUsuario = this.formEmpresa.value.Usuario;
       this.genericService
-        .Put('centrotrabajo/ActualizarCentroDeTrabajo', centroTrabajo)
+        .Put('empresas/ActualizarEmpresaAsignar', empresa)
         .subscribe({
           next: (data) => {
             this.dialogRef.close();
@@ -213,7 +194,7 @@ export class UsersFormComponent implements OnInit {
               icon: 'success',
               title: 'Usuario asignado exitosamente.',
               showConfirmButton: false,
-              timer: 2800,
+              timer: 1600,
             }).then(() => window.location.reload());
           },
           error: (error) => {
@@ -221,10 +202,16 @@ export class UsersFormComponent implements OnInit {
               icon: 'warning',
               title: 'Ha ocurrido un error! ' + error.error.message,
               showConfirmButton: false,
-              timer: 2800,
+              timer: 1600,
             });
           },
         });
+    } else if (this.table == 1) {
+      var body = {
+        Workplace: this.data.item.id,
+        User: this.formEmpresa.value.Usuario,
+      };
+      this.savePsychologist(body);
     } else if (this.table == 2) {
       var body = {
         Workplace: this.data.item.id,
@@ -279,5 +266,32 @@ export class UsersFormComponent implements OnInit {
         .subscribe();
     }
     // if (this.data.retornarModal == undefined) window.location.reload();
+  }
+  savePsychologist(body: any) {
+    this.genericService
+      .Post('psicologosCentroTrabajo/RegistrarCentroDeTrabajo', body)
+      .subscribe({
+        next: (data) => {
+          Swal.fire({
+            icon: 'success',
+            title:
+              'Se ha vinculado al(los) Psicólogo(s) Especialista(s) SST seleccionado(s)',
+            showConfirmButton: false,
+            timer: 1200,
+          });
+          setTimeout(() => this.loadingService.ChangeStatusLoading(false), 600);
+        },
+        error: (error) => {
+          console.error(error.error.message);
+          this.openSnackBar(error.error.message);
+          setTimeout(() => this.loadingService.ChangeStatusLoading(false), 600);
+        },
+      });
+  }
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'x', {
+      horizontalPosition: 'start',
+      verticalPosition: 'bottom',
+    });
   }
 }

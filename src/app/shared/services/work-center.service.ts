@@ -38,6 +38,15 @@ export class WorkCenterService {
         `userWorkPlace/EliminarCentroTrabajoUsuario?centroTrabajo=${workCenter}&user=${user}`
     );
   }
+  public DeletePsychologistWorkCenter(
+    user: any,
+    workCenter: any
+  ): Observable<any> {
+    return this.http.delete<any>(
+      environment.urlApi +
+        `psicologosCentroTrabajo/DesvincularPsicologoCentroTrabajo?centroTrabajo=${workCenter}&user=${user}`
+    );
+  }
   public ChangeStatus(
     origin: string,
     id: string,

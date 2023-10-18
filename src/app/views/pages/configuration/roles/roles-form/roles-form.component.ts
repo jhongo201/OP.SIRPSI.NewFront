@@ -102,4 +102,7 @@ export class RolesFormComponent implements OnInit {
     //   });
     // }
   }
+  cancelForm() {
+    this.dialogRef.close();
+  }
 }

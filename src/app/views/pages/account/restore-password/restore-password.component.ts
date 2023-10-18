@@ -29,7 +29,7 @@ export class RestorePasswordComponent implements OnInit {
       Document: ['1234567', Validators.required],
       Email: ['jculma@ministerio.gov.co', Validators.required],
     });
-    this.accountService.ValidateSesion();
+    // this.accountService.ValidateSesion();
     setTimeout(() => this.loadingService.ChangeStatusLoading(false), 800);
   }
   GetInto() {

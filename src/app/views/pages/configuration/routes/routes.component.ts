@@ -28,13 +28,13 @@ export class RoutesComponent implements OnInit {
   ];
   public options = [
     {
-      delete: true,
-      edit: true,
-      details: true,
-      select: true,
-      state: true,
-      pdf: true,
-      validationSelect: true,
+      // delete: true,
+      // edit: true,
+      // details: true,
+      // select: true,
+      // state: true,
+      // pdf: true,
+      // validationSelect: true,
     },
   ];
 

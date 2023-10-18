@@ -9,7 +9,12 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 
-import { NgbDropdownModule, NgbTooltipModule, NgbNavModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbTooltipModule,
+  NgbNavModule,
+  NgbCollapseModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppsComponent } from './apps.component';
@@ -25,18 +30,19 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
+  suppressScrollX: true,
 };
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
   listPlugin,
-  interactionPlugin
+  interactionPlugin,
 ]);
 
 // ngx-quill
 import { QuillModule } from 'ngx-quill';
+import { PreguntaModule } from 'src/app/shared/components/app-question/app-question.module';
 
 const routes: Routes = [
   {
@@ -55,36 +61,44 @@ const routes: Routes = [
           {
             path: '',
             redirectTo: 'inbox',
-            pathMatch: 'full'
+            pathMatch: 'full',
           },
           {
             path: 'inbox',
-            component: InboxComponent
+            component: InboxComponent,
           },
           {
             path: 'read',
-            component: ReadComponent
+            component: ReadComponent,
           },
           {
             path: 'compose',
-            component: ComposeComponent
-          }
-        ]
+            component: ComposeComponent,
+          },
+        ],
       },
       {
         path: 'chat',
-        component: ChatComponent
+        component: ChatComponent,
       },
       {
         path: 'calendar',
-        component: CalendarComponent
+        component: CalendarComponent,
       },
-    ]
-  }
-]
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [EmailComponent, ChatComponent, CalendarComponent, AppsComponent, InboxComponent, ReadComponent, ComposeComponent],
+  declarations: [
+    EmailComponent,
+    ChatComponent,
+    CalendarComponent,
+    AppsComponent,
+    InboxComponent,
+    ReadComponent,
+    ComposeComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -96,13 +110,14 @@ const routes: Routes = [
     NgbNavModule,
     NgbCollapseModule,
     NgSelectModule,
+    PreguntaModule,
     QuillModule.forRoot(), // ngx-quill
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
-  ]
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
+  ],
 })
-export class AppsModule { }
+export class AppsModule {}

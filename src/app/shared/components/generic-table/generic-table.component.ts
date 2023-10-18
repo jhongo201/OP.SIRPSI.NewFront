@@ -6,7 +6,9 @@ import { GenericService } from 'src/app/shared/services/generic.service';
 import { LoadingService } from '../../services/loading.service';
 import { environment } from 'src/environments/environment';
 import { DataTable } from 'simple-datatables';
-import { AnyObject } from 'chart.js/types/basic';
+import * as XLSX from 'xlsx';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-generic-table',
@@ -20,6 +22,7 @@ export class GenericTableComponent implements OnInit {
   @Output() pdf = new EventEmitter<any>();
   @Output() assign = new EventEmitter<any>();
   @Output() deletePer = new EventEmitter<any>();
+  @Output() check = new EventEmitter<any>();
   @Input('columns') columns: any = [];
   @Input('table') table: string = '';
   @Input('title') title: string = '';
@@ -28,12 +31,14 @@ export class GenericTableComponent implements OnInit {
   @Input('nameColumnStatus') nameColumnStatus: string = 'idEstado';
   @Input('filter') filter: any = '';
   @Input('options') options: any = [];
+  @Input('export') export: boolean = false;
   @Input('dataTable') dataTable: any;
   public state: string = environment.activoEstado;
   public data: any[] = [];
   public pageSize: number = 5;
   public pageNumber: number = 0;
   public totalItems: number = 0;
+  public DataTable: DataTable;
   constructor(
     private genericService: GenericService,
     public dialog: MatDialog,
@@ -72,20 +77,20 @@ export class GenericTableComponent implements OnInit {
           this.pageSize = data.pageSize;
           this.totalItems = data.totalItems;
           setTimeout(() => {
-            var dataTable = new DataTable('#dataTableExample', {
+            this.DataTable = new DataTable('#dataTableExample', {
               perPageSelect: [5, 10, 15, 20],
               perPage: 5,
               labels: {
                 placeholder: 'Buscar...', // The search input placeholder
-                perPage: '{select} Numero de registro por pagina', // per-page dropdown label
+                perPage: '{select} Número de registro por página', // per-page dropdown label
                 noRows: 'No se encontraron registros', // Message shown when there are no records to show
                 noResults:
                   'Ningún resultado coincide con su consulta de búsqueda', // Message shown when there are no search results
                 info: 'Mostrando {start} a {end} de {rows} entradas', //
               },
             });
-            console.log(dataTable);
-            this.AjustarEventosTable(dataTable);
+            // console.log(this.DataTable);
+            this.AjustarEventosTable(this.DataTable);
             this.loadingService.ChangeStatusLoading(false);
           }, 1200);
         },
@@ -112,6 +117,7 @@ export class GenericTableComponent implements OnInit {
         if (btn.contains('btn-state')) this.ChangeStaTus(item);
         if (btn.contains('btn-assign')) this.DetailOrEditItem(item, 4);
         if (btn.contains('btn-select')) this.SeletedItem(item, null, null);
+        if (btn.contains('check-item')) this.DetailOrEditItem(item, 6);
       }
     );
   }
@@ -138,6 +144,7 @@ export class GenericTableComponent implements OnInit {
           },
           (error) => {
             console.error(error);
+            Swal.fire('Error', error.error.message, 'error');
             this.openSnackBar(error.error.message);
             setTimeout(
               () => this.loadingService.ChangeStatusLoading(false),
@@ -149,13 +156,14 @@ export class GenericTableComponent implements OnInit {
     });
   }
   DetailOrEditItem(item: any, type: number) {
-    this.loadingService.ChangeStatusLoading(true);
+    // this.loadingService.ChangeStatusLoading(true);
     if (type == 1) this.dateil.emit(item);
     if (type == 2) this.edit.emit(item);
     if (type == 3) this.pdf.emit(item);
     if (type == 4) this.assign.emit(item);
     if (type == 5) this.deletePer.emit(item);
-    setTimeout(() => this.loadingService.ChangeStatusLoading(false), 600);
+    if (type == 6) this.check.emit(item);
+    // setTimeout(() => this.loadingService.ChangeStatusLoading(false), 600);
   }
   SeletedItem(item: any, estado: any, validationSelect: boolean | any) {
     this.loadingService.ChangeStatusLoading(true);
@@ -201,7 +209,56 @@ export class GenericTableComponent implements OnInit {
       }
     });
   }
+
+  exportTableType() {
+    this.DataTable.export({
+      type: 'json',
+      download: true,
+      filename: 'reporte',
+    });
+  }
+
+  exportToPDF() {
+    const doc = new jsPDF();
+    autoTable(doc, {
+      html: '.table',
+      styles: { fontSize: 6, cellWidth: 'wrap' },
+      horizontalPageBreak: true,
+      margin: 0,
+    });
+    doc.save('data.pdf');
+  }
+
+  exportTableExcel() {
+    const jsonData: any[] = [
+      { Nombre: 'Juan', Edad: 30, Correo: 'juan@example.com' },
+      { Nombre: 'María', Edad: 25, Correo: 'maria@example.com' },
+      { Nombre: 'Pedro', Edad: 35, Correo: 'pedro@example.com' },
+    ];
+
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(jsonData);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
+
+    const excelArrayBuffer = XLSX.write(wb, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const blob = new Blob([excelArrayBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 }
+
 export const defaultConfig: any = {
   // for sorting
   sortable: true,

@@ -1,4 +1,4 @@
-<!-- <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
   <div>
     <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
   </div>
@@ -7,8 +7,8 @@
       <button class="btn btn-outline-primary btn-icon calendar" type="button" (click)="d.toggle()">
         <i data-feather="calendar" appFeatherIcon></i>
       </button>
-      <input class="form-control border-primary bg-transparent" placeholder="yyyy-mm-dd"
-          name="dp" [(ngModel)]="currentDate" ngbDatepicker #d="ngbDatepicker">
+      <input class="form-control border-primary bg-transparent" placeholder="yyyy-mm-dd" name="dp"
+        [(ngModel)]="currentDate" ngbDatepicker #d="ngbDatepicker">
     </div>
     <button type="button" class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0">
       <i class="btn-icon-prepend" data-feather="printer" appFeatherIcon></i>
@@ -34,11 +34,17 @@
                   <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal" appFeatherIcon></i>
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i> <span class="">View</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="edit-2" appFeatherIcon class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="trash" appFeatherIcon class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="printer" appFeatherIcon class="icon-sm me-2"></i> <span class="">Print</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="download" appFeatherIcon class="icon-sm me-2"></i> <span class="">Download</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="eye"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">View</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="edit-2"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Edit</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="trash"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Delete</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="printer"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Print</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i
+                      data-feather="download" appFeatherIcon class="icon-sm me-2"></i> <span
+                      class="">Download</span></a>
                 </div>
               </div>
             </div>
@@ -54,14 +60,9 @@
               </div>
               <div class="col-6 col-md-12 col-xl-7">
                 <div class="mt-md-3 mt-xl-0">
-                  <apx-chart
-                    [series]="customersChartOptions.series"
-                    [chart]="customersChartOptions.chart"
-                    [colors]="customersChartOptions.colors"
-                    [xaxis]="customersChartOptions.xaxis"
-                    [stroke]="customersChartOptions.stroke"
-                    [markers]="customersChartOptions.markers"
-                  ></apx-chart>
+                  <apx-chart [series]="customersChartOptions.series" [chart]="customersChartOptions.chart"
+                    [colors]="customersChartOptions.colors" [xaxis]="customersChartOptions.xaxis"
+                    [stroke]="customersChartOptions.stroke" [markers]="customersChartOptions.markers"></apx-chart>
                 </div>
               </div>
             </div>
@@ -74,15 +75,22 @@
             <div class="d-flex justify-content-between align-items-baseline">
               <h6 class="card-title mb-0">New Orders</h6>
               <div ngbDropdown class="mb-2">
-                <button ngbDropdownToggle class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton1">
+                <button ngbDropdownToggle class="btn p-0 no-dropdown-toggle-icon" type="button"
+                  id="dropdownMenuButton1">
                   <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal" appFeatherIcon></i>
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i> <span class="">View</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="edit-2" appFeatherIcon class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="trash" appFeatherIcon class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="printer" appFeatherIcon class="icon-sm me-2"></i> <span class="">Print</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="download" appFeatherIcon class="icon-sm me-2"></i> <span class="">Download</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="eye"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">View</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="edit-2"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Edit</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="trash"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Delete</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="printer"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Print</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i
+                      data-feather="download" appFeatherIcon class="icon-sm me-2"></i> <span
+                      class="">Download</span></a>
                 </div>
               </div>
             </div>
@@ -98,13 +106,9 @@
               </div>
               <div class="col-6 col-md-12 col-xl-7">
                 <div class="mt-md-3 mt-xl-0">
-                  <apx-chart
-                    [series]="ordersChartOptions.series"
-                    [chart]="ordersChartOptions.chart"
-                    [colors]="ordersChartOptions.colors"
-                    [plotOptions]="ordersChartOptions.plotOptions"
-                    [xaxis]="ordersChartOptions.xaxis"
-                  ></apx-chart>
+                  <apx-chart [series]="ordersChartOptions.series" [chart]="ordersChartOptions.chart"
+                    [colors]="ordersChartOptions.colors" [plotOptions]="ordersChartOptions.plotOptions"
+                    [xaxis]="ordersChartOptions.xaxis"></apx-chart>
                 </div>
               </div>
             </div>
@@ -117,15 +121,22 @@
             <div class="d-flex justify-content-between align-items-baseline">
               <h6 class="card-title mb-0">Growth</h6>
               <div ngbDropdown class="mb-2">
-                <button ngbDropdownToggle class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton2">
+                <button ngbDropdownToggle class="btn p-0 no-dropdown-toggle-icon" type="button"
+                  id="dropdownMenuButton2">
                   <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal" appFeatherIcon></i>
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownMenuButton2">
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="eye" appFeatherIcon class="icon-sm me-2"></i> <span class="">View</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="edit-2" appFeatherIcon class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="trash" appFeatherIcon class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="printer" appFeatherIcon class="icon-sm me-2"></i> <span class="">Print</span></a>
-                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="download" appFeatherIcon class="icon-sm me-2"></i> <span class="">Download</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="eye"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">View</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="edit-2"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Edit</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="trash"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Delete</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i data-feather="printer"
+                      appFeatherIcon class="icon-sm me-2"></i> <span class="">Print</span></a>
+                  <a ngbDropdownItem class="d-flex align-items-center" href="" (click)="false"><i
+                      data-feather="download" appFeatherIcon class="icon-sm me-2"></i> <span
+                      class="">Download</span></a>
                 </div>
               </div>
             </div>
@@ -141,14 +152,9 @@
               </div>
               <div class="col-6 col-md-12 col-xl-7">
                 <div class="mt-md-3 mt-xl-0">
-                  <apx-chart
-                    [series]="growthChartOptions.series"
-                    [chart]="growthChartOptions.chart"
-                    [colors]="growthChartOptions.colors"
-                    [xaxis]="growthChartOptions.xaxis"
-                    [stroke]="growthChartOptions.stroke"
-                    [markers]="growthChartOptions.markers"
-                  ></apx-chart>
+                  <apx-chart [series]="growthChartOptions.series" [chart]="growthChartOptions.chart"
+                    [colors]="growthChartOptions.colors" [xaxis]="growthChartOptions.xaxis"
+                    [stroke]="growthChartOptions.stroke" [markers]="growthChartOptions.markers"></apx-chart>
                 </div>
               </div>
             </div>
@@ -157,7 +163,7 @@
       </div>
     </div>
   </div>
-</div> 
+</div>
 
 <div class="row">
   <div class="col-12 col-xl-12 grid-margin stretch-card">
@@ -206,7 +212,7 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 <div class="row">
   <div class="col-lg-7 col-xl-8 grid-margin stretch-card">
@@ -292,7 +298,7 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 <div class="row">
   <div class="col-lg-5 col-xl-4 grid-margin grid-margin-xl-0 stretch-card">
@@ -482,4 +488,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

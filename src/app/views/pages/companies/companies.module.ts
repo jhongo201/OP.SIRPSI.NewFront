@@ -22,16 +22,30 @@ import { UpdateCompanyDataComponent } from './update-company-data/update-company
 import { UpdateCompanyDataModule } from './update-company-data/update-company-data.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module';
+import { LinkUnlinkUsersComponent } from './link-unlink-users/link-unlink-users.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { LinkUsersComponent } from './link-unlink-users/link-users/link-users.component';
+import { UnlinkUsersComponent } from './link-unlink-users/unlink-users/unlink-users.component';
+import { RemoveUserComponent } from './link-unlink-users/remove-user/remove-user.component';
+import { ReinstateUserComponent } from './link-unlink-users/reinstate-user/reinstate-user.component';
+import { CompanyInformationFirstModule } from './update-company-data/company-information-first/company-information-first.module';
+import { CompaniesFormModule } from './companies-form/companies-form.module';
 
 @NgModule({
   declarations: [
     CompaniesComponent,
-    CompaniesFormComponent,
     CompaniesUserComponent,
+    LinkUnlinkUsersComponent,
+    LinkUsersComponent,
+    UnlinkUsersComponent,
+    RemoveUserComponent,
+    ReinstateUserComponent,
   ],
   imports: [
     CommonModule,
+    CompaniesFormModule,
     CompaniesRoutingModule,
+    CompanyInformationFirstModule,
     MatSnackBarModule,
     GenericTableModule,
     NgSelectModule,
@@ -53,6 +67,7 @@ import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module
     FeatherIconModule,
     UpdateCompanyDataModule,
     NgxMaskModule.forRoot({ validation: true }),
+    MatTabsModule,
   ],
   exports: [CompaniesFormComponent],
 })

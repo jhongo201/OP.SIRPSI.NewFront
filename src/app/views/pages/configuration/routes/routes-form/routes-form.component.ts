@@ -45,7 +45,7 @@ export class RoutesFormComponent implements OnInit {
           setTimeout(() => this.loadingService.ChangeStatusLoading(false), 400);
           Swal.fire({
             icon: 'success',
-            title: 'Role Registrado, exitosamente.',
+            title: 'Ruta registrado, exitosamente.',
             showConfirmButton: false,
             timer: 2800,
           }).then(() => window.location.reload());
@@ -71,4 +71,7 @@ export class RoutesFormComponent implements OnInit {
       .subscribe();
   }
   onUpdateEmpresa() {}
+  cancelForm() {
+    this.dialogRef.close();
+  }
 }

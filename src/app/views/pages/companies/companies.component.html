@@ -34,7 +34,7 @@
                 <div class="col-md-12 space"></div>
                 <app-generic-table [columns]="columnsWork" [options]="optionsWork" [dataTable]="this.dataTable"
                     [table]="'centrotrabajo/ConsultarCentroDeTrabajo'" (assign)="onAssignAdmin($event, 1, 2, 2)"
-                    (selected)="SelectCentroTrabajo($event)"></app-generic-table>
+                    (selected)="SelectCentroTrabajo($event)" [delete]="'centrotrabajo/EliminarCentroTrabajo'"></app-generic-table>
             </div>
         </div>
     </div>

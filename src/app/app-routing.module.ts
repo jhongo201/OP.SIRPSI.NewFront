@@ -76,6 +76,22 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'query-reports',
+        loadChildren: () =>
+          import('./views/pages/query-reports/query-reports.module').then(
+            (m) => m.QueryReportsModule
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'psychosocial-evaluation',
+        loadChildren: () =>
+          import(
+            './views/pages/psychosocial-evaluation/psychosocial-evaluation.module'
+          ).then((m) => m.PsychosocialEvaluationModule),
+        // canActivate: [AuthGuard],
+      },
+      {
         path: 'profile',
         loadChildren: () =>
           import('./views/pages/profile/profile.module').then(

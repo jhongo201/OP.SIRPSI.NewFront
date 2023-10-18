@@ -21,6 +21,18 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxMaskModule } from 'ngx-mask';
 import { UsersCompanyNotAffiliatedComponent } from './users-company-not-affiliated/users-company-not-affiliated.component';
 import { BulkUserAssignmenFormComponent } from './bulk-user-assignmen-form/bulk-user-assignmen-form.component';
+import { RegisterNewUsersComponent } from './register-new-users/register-new-users.component';
+import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RegisterNewWorkerComponent } from './register-new-worker/register-new-worker.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
+import { UpdateWorkerDataComponent } from './update-worker-data/update-worker-data.component';
+import { UpdatePsychologistDataComponent } from './update-psychologist-data/update-psychologist-data.component';
+import { OccupationalLicenseComponent } from './update-psychologist-data/occupational-license/occupational-license.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { WorkerDataFormModule } from 'src/app/shared/components/worker-data-form/worker-data-form.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +42,11 @@ import { BulkUserAssignmenFormComponent } from './bulk-user-assignmen-form/bulk-
     ActivateInactiveUsersComponent,
     UsersCompanyNotAffiliatedComponent,
     BulkUserAssignmenFormComponent,
+    RegisterNewUsersComponent,
+    RegisterNewWorkerComponent,
+    UpdateWorkerDataComponent,
+    UpdatePsychologistDataComponent,
+    OccupationalLicenseComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +59,7 @@ import { BulkUserAssignmenFormComponent } from './bulk-user-assignmen-form/bulk-
     MatSelectModule,
     MatButtonModule,
     FileUploadModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
@@ -50,7 +68,13 @@ import { BulkUserAssignmenFormComponent } from './bulk-user-assignmen-form/bulk-
     MatPaginatorModule,
     MatNativeDateModule,
     NgSelectModule,
+    MatTooltipModule,
+    MatDividerModule,
+    FeatherIconModule,
     NgxMaskModule.forRoot({ validation: true }),
+    MatTabsModule,
+    MatRadioModule,
+    WorkerDataFormModule,
   ],
 })
 export class UsersModule {}
