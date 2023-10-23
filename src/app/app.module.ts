@@ -30,7 +30,7 @@ import { QueryReportsComponent } from './views/pages/query-reports/query-reports
     AppComponent,
     ErrorPageComponent,
     ReloadDirective,
-    QueryReportsComponent,
+    QueryReportsComponent
   ],
   imports: [
     HttpClientModule,

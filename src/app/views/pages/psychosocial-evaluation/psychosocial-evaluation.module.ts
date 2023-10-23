@@ -5,7 +5,8 @@ import { PsychosocialEvaluationRoutingModule } from './psychosocial-evaluation-r
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     PsychosocialEvaluationRoutingModule
