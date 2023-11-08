@@ -55,6 +55,13 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
       this.view = true;
     }
   }
+  getFinal() {
+    const data = localStorage.getItem('final')?.toLowerCase() === "true" ? true : false;
+    if (data) {
+      this.final = true;
+      this.getIdQuizFinal();
+    }
+  }
 
   modalAlertConfirmation() {
     var messageInfo =
@@ -95,10 +102,12 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
   }
 
   getIdQuiz() {
+    console.log(this.accountService.userData.id);
+    
     this.psychosocialQuestionnaireService.getIdQuiz(this.accountService.userData.id).subscribe({
       next: (data) => {
         this.idQuiz = data[0].id;
-        this.getIdQuizFinal();
+        this.getFinal();
       },
       error: (err) => {
         this.view = false;
@@ -183,55 +192,15 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
     this.getIdQuizFinal();
   }
 
-  getIdQuizFinal() {
-    this.psychosocialQuestionnaireService.getResultQuizFinal(this.idQuiz).subscribe({
+  getIdQuizFinal() { 
+    this.psychosocialQuestionnaireService.getResultQuizFinal(this.idQuiz, 'A1').subscribe({
       next: (data) => {
         this.datos = data;
-        this.procesarDatos();
+        //this.procesarDatos();
       },
       error: (err) => {
         console.log(err);
       },
     })
-  }
-
-  procesarDatos() {
-    for (const item of this.datos) {
-      this.contadorDominio(item.dimension, item.detalles, item.dominio);
-      this.contadorDimensiones(`forma : ${item.dimension}`, item.detalles);
-    }
-  }
-
-  contadorDominio(forma: any, detalles: any, dominioId: any) {
-    let brutoDominio = 0;
-
-    for (let i = 0; i < detalles.length; i++) {
-      const objeto = detalles[i];
-      brutoDominio += objeto.respuesta;
-    }
-
-    console.log(`El Bruto total del dominio forma ${forma} es : ${brutoDominio}`);
-  }
-
-  contadorDimensiones(forma: any, data: any) {
-    const sumaPorDimension: { [key: string]: number } = {};
-
-    for (const item of data) {
-      const nombreDimension = item.nombreDimension;
-      const respuesta = item.respuesta;
-
-      if (!sumaPorDimension[nombreDimension]) {
-        sumaPorDimension[nombreDimension] = 0;
-      }
-
-      sumaPorDimension[nombreDimension] += respuesta;
-    }
-
-    const mapeoDatos = Object.keys(sumaPorDimension).map(dimension => ({
-      dimension,
-      valor: sumaPorDimension[dimension],
-    }));
-
-    console.log(mapeoDatos);
   }
 }

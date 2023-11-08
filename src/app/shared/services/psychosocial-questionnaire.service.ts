@@ -71,9 +71,9 @@ export class PsychosocialQuestionnaireService {
       );
   }
 
-  public getResultQuizFinal(id : string): Observable<any> {
+  public getResultQuizFinal(id : string, forma : string): Observable<any> {
     return this.http
-      .get<any>(environment.urlApi + `Preguntas/ConsultarBrutoDimension?IdEvaluacion=${id}`)
+      .get<any>(environment.urlApi + `Preguntas/ConsultarBrutoDimension?IdEvaluacion=${id}&formaId=${forma}`)
       .pipe(
         map((res) => {
           if (res.Status == '400') {
