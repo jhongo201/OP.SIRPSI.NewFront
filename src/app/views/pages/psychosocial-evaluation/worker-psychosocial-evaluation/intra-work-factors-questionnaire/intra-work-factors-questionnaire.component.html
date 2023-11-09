@@ -49,6 +49,20 @@
                 <input type="radio" class="form-check-input" [value]="false" name="radioSelectedText_{{ index }}" [(ngModel)]="resPutn2"  (ngModelChange)="changeOption2($event, index)">
             </div>
         </div>
+        <div class="mb-4 d-flex" *ngIf="index === 12">
+            <div class="form-check mb-2" style="margin-right: 2em;">
+                <label class="form-check-label" for="radioDefault">
+                    Si
+                </label>
+                <input type="radio" class="form-check-input" [value]="true" name="radioSelectedText_{{ index }}" [(ngModel)]="resPutn3"  (ngModelChange)="changeOption3($event, index)">
+            </div>
+            <div class="form-check mb-2">
+                <label class="form-check-label" for="radioDefault1">
+                    No
+                </label>
+                <input type="radio" class="form-check-input" [value]="false" name="radioSelectedText_{{ index }}" [(ngModel)]="resPutn3"  (ngModelChange)="changeOption3($event, index)">
+            </div>
+        </div>
         <div *ngIf="dataListText[index].quiz">
             <h5>Progreso</h5>
             <p class="mb-3"><ngb-progressbar type="primary" [value]="progress" [showValue]="true"></ngb-progressbar></p>
