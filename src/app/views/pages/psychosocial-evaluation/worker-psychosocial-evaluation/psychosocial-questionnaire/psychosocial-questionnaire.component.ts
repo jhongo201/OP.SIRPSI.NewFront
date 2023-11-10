@@ -267,11 +267,15 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
     this.psychosocialQuestionnaireService.saveRadicado(this.idQuiz, this.radicado).subscribe({
       next: (data) => {
         this.final = true;
+        localStorage.clear();
         localStorage.setItem('final', "true");
+        localStorage.setItem('viewQuiz', "true");
       },
       error: () => {
         this.final = true;
+        localStorage.clear();
         localStorage.setItem('final', "true");
+        localStorage.setItem('viewQuiz', "true");
       },
     })
   }
