@@ -28,7 +28,7 @@ export class IntraWorkFactorsQuestionnaireComponent implements OnInit {
   resPutn1: any;
   resPutn2: any;
   resPutn3: any;
-  dataListText: any[] = [];
+  dataListText: any = undefined;
   dataListTextA1 = [
     {
       title: 'Las siguientes preguntas están relacionadas con las condiciones ambientales del(los) sitio(s) o lugar(es) donde habitualmente rea liza su trabajo. [1-12]',
@@ -283,8 +283,7 @@ export class IntraWorkFactorsQuestionnaireComponent implements OnInit {
   }
 
 
-  startQuizData() {
-    console.log(this.clasificacion);    
+  startQuizData() { 
     this.startQuiz = true;
     this.propagarStart.emit();
     this.getDataList([]);
@@ -305,9 +304,11 @@ export class IntraWorkFactorsQuestionnaireComponent implements OnInit {
         this.calculateProgress();
         if (this.clasificacion === 'Grupo Forma A') {
           this.dataListText = this.dataListTextA1;
+          console.log(this.dataListText);          
           this.asginarPosicion();
         } else {
           this.dataListText = this.dataListTextA2;
+          console.log(this.dataListText);          
           this.asginarPosicionB();
         }
       },
