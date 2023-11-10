@@ -27,6 +27,7 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
   nombrePsicologo: string = '';
   telPsicologo: string = '';
   docPsicologo: string = '';
+  emailPsicologo: string = '';
   radicado: string = '';
 
 
@@ -174,6 +175,7 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
             this.nombrePsicologo = data[0].namePsicologo;
             this.telPsicologo = data[0].telefono;
             this.docPsicologo = data[0].documentoPsicologo;
+            this.emailPsicologo = data[0].emailPsicologo;          
             this.getDialog();
           }
         }
