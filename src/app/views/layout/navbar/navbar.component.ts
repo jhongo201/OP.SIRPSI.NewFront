@@ -46,7 +46,6 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout(e: Event) {
-    localStorage.clear();
     this.accountService.CloseUserSession();
   }
   updateDataPersonal() {
