@@ -15,7 +15,7 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
 
   defaultNavActiveId = 1;
 
-  tiempoRestante = undefined;
+  tiempoRestante = 0;
 
   view = false;
 
