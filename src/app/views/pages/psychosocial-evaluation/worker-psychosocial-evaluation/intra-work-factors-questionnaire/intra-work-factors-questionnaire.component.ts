@@ -300,15 +300,14 @@ export class IntraWorkFactorsQuestionnaireComponent implements OnInit {
           objeto.puntuacion = null;
           objeto.puntuacionA = null;
         });
+        console.log(this.dataList);        
         this.asignarPuntuaciones(lista);
         this.calculateProgress();
         if (this.clasificacion === 'Grupo Forma A') {
-          this.dataListText = this.dataListTextA1;
-          console.log(this.dataListText);          
+          this.dataListText = this.dataListTextA1; 
           this.asginarPosicion();
         } else {
           this.dataListText = this.dataListTextA2;
-          console.log(this.dataListText);          
           this.asginarPosicionB();
         }
       },
