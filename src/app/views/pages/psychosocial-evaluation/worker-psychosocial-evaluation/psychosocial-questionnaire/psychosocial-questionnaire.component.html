@@ -58,5 +58,12 @@
             radicado correspondiente <br> <br>
             Radicado: {{radicado}}</h2>
     </div>
+</div>
 
+<div *ngIf="tiempoRestante < 0">
+    <label class="title" style="margin-top: 1.5em; margin-bottom: 1.5em;">Tiempo de evaluacion finalizado</label>
+    <div style="padding: 3em;">
+        <h1 class="text-center" style="font-weight: 900;">RESULTADOS</h1>
+        <h2 style="padding: 0 5em;">Se ha terminado correctamente la evaluación psicosocial.</h2>
+    </div>
 </div>
