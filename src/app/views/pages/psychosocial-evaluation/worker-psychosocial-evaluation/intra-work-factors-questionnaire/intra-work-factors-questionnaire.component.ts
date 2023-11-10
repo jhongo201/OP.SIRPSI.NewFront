@@ -284,6 +284,7 @@ export class IntraWorkFactorsQuestionnaireComponent implements OnInit {
 
 
   startQuizData() {
+    console.log(this.clasificacion);    
     this.startQuiz = true;
     this.propagarStart.emit();
     this.getDataList([]);
@@ -292,8 +293,7 @@ export class IntraWorkFactorsQuestionnaireComponent implements OnInit {
 
   getDataList(lista: any[]) {
     this.psychosocialQuestionnaireService.getList().subscribe({
-      next: (data) => {
-        console.log(data);        
+      next: (data) => {   
         let list: any[] = data;
         list = list.sort((a, b) => a.posicion - b.posicion);
         this.dataList = list.filter(d => d.forma === (this.clasificacion === 'Grupo Forma A' ? 'A1' : 'A2'));
