@@ -195,7 +195,7 @@ export class PsychosocialQuestionnaireComponent implements OnInit {
       const tiempoTranscurrido = ahora - horaInicioTimestamp;
 
       // Obtener la duración del quiz (2 horas = 7200000 ms)
-      const duracionQuiz = 60 * 1000;
+      const duracionQuiz = 2 * 60 * 60 * 1000;
 
       // Restar el tiempo transcurrido de la duración del quiz
       this.tiempoRestante = duracionQuiz - tiempoTranscurrido;
